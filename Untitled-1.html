@@ -1,0 +1,267 @@
+<html>
+ <head>
+  <title>
+   Desserts
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <div class="max-w-7xl mx-auto p-6 bg-cream-100">
+   <div class="flex justify-between">
+    <div class="w-3/4">
+     <h1 class="text-4xl font-bold mb-6">
+      Desserts
+     </h1>
+     <div class="grid grid-cols-3 gap-6" id="dessert-list">
+      <!-- Dessert Item 1 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Waffle with Berries" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/geFb7uRzb7XYYSrHX5IcBubvdPE4gQQF89m8tIoDTMdbaL4JA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Waffle
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(1)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Waffle with Berries
+       </h2>
+       <p class="text-orange-500">
+        $6.50
+       </p>
+      </div>
+      <!-- Dessert Item 2 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Vanilla Bean Crème Brûlée" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/bo5DYmlNvI4xCJGiebo5fO00vGUjRlBvw5BX8ACrY9Hx0WwTA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Crème Brûlée
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(2)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Vanilla Bean Crème Brûlée
+       </h2>
+       <p class="text-orange-500">
+        $7.00
+       </p>
+      </div>
+      <!-- Dessert Item 3 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Macaron Mix of Five" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/Sk3s8EJEYUbmHVHL3ttexeRPCjdWOqeuVFmJhfGffydINtF8E.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Macaron
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(3)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Macaron Mix of Five
+       </h2>
+       <p class="text-orange-500">
+        $8.00
+       </p>
+      </div>
+      <!-- Dessert Item 4 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Classic Tiramisu" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/IsToYU7emmQ7UqEVVrnTErNchMW5CNkwK2XiDNgoOFAXaL4JA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Tiramisu
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(4)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Classic Tiramisu
+       </h2>
+       <p class="text-orange-500">
+        $5.50
+       </p>
+      </div>
+      <!-- Dessert Item 5 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Pistachio Baklava" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/KGogVfzR6a16CawJ2pFrB7nqxSZJK2yapn6CfgbPOxXs0WwTA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Baklava
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(5)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Pistachio Baklava
+       </h2>
+       <p class="text-orange-500">
+        $4.00
+       </p>
+      </div>
+      <!-- Dessert Item 6 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Lemon Meringue Pie" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/f4Ya4kya4nzEIq8MrociHQxqgsAmZcqAxc58Gejz7M5q0WwTA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Pie
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(6)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Lemon Meringue Pie
+       </h2>
+       <p class="text-orange-500">
+        $5.00
+       </p>
+      </div>
+      <!-- Dessert Item 7 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Strawberry Shortcake" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/RHE3e1t6wOxBRCPLY6A7vrRcYFjoYTiRQnkWdV0PxCpWaL4JA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Shortcake
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(7)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Strawberry Shortcake
+       </h2>
+       <p class="text-orange-500">
+        $6.00
+       </p>
+      </div>
+      <!-- Dessert Item 8 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Chocolate Brownie" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/wuqSlMeIzIy6QCLtQhhuZWDVM1pCAUPHxaerfXLIJODhptgnA.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Brownie
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(8)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Chocolate Brownie
+       </h2>
+       <p class="text-orange-500">
+        $4.50
+       </p>
+      </div>
+      <!-- Dessert Item 9 -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+       <img alt="Vanilla Panna Cotta" class="rounded-t-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/TPJ16noheWQoRyxHGXqffNaDhwOdf6vaS2kRtHYDtDdMTbBPB.jpg" width="300"/>
+       <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">
+         Panna Cotta
+        </span>
+        <button class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs" onclick="addToCart(9)">
+         Add to Cart
+        </button>
+       </div>
+       <h2 class="text-lg font-bold">
+        Vanilla Panna Cotta
+       </h2>
+       <p class="text-orange-500">
+        $6.50
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="w-1/4 bg-white rounded-lg shadow-md p-6">
+     <h2 class="text-2xl font-bold mb-4">
+      Your Cart (
+      <span id="cart-count">
+       0
+      </span>
+      )
+     </h2>
+     <ul class="mb-4" id="cart-items">
+      <!-- Cart Items will be injected here by JavaScript -->
+     </ul>
+     <div class="flex justify-between items-center mb-4">
+      <span class="text-lg font-bold">
+       Order Total
+      </span>
+      <span class="text-2xl font-bold text-orange-500" id="order-total">
+       $0.00
+      </span>
+     </div>
+     <div class="flex items-center mb-4">
+      <i class="fas fa-leaf text-green-500 mr-2">
+      </i>
+      <span class="text-sm text-gray-500">
+       This is a carbon-neutral delivery
+      </span>
+     </div>
+     <button class="bg-orange-500 text-white w-full py-2 rounded-lg">
+      Confirm Order
+     </button>
+    </div>
+   </div>
+  </div>
+  <script>
+   const desserts = [
+            { id: 1, name: "Waffle with Berries", type: "Waffle", price: 6.50 },
+            { id: 2, name: "Vanilla Bean Crème Brûlée", type: "Crème Brûlée", price: 7.00 },
+            { id: 3, name: "Macaron Mix of Five", type: "Macaron", price: 8.00 },
+            { id: 4, name: "Classic Tiramisu", type: "Tiramisu", price: 5.50 },
+            { id: 5, name: "Pistachio Baklava", type: "Baklava", price: 4.00 },
+            { id: 6, name: "Lemon Meringue Pie", type: "Pie", price: 5.00 },
+            { id: 7, name: "Strawberry Shortcake", type: "Shortcake", price: 6.00 },
+            { id: 8, name: "Chocolate Brownie", type: "Brownie", price: 4.50 },
+            { id: 9, name: "Vanilla Panna Cotta", type: "Panna Cotta", price: 6.50 }
+        ];
+
+        const cart = [];
+
+        function addToCart(id) {
+            const dessert = desserts.find(d => d.id === id);
+            const cartItem = cart.find(item => item.id === id);
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...dessert, quantity: 1 });
+            }
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const orderTotal = document.getElementById('order-total');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                const cartItem = document.createElement('li');
+                cartItem.className = 'flex justify-between items-center mb-2';
+                cartItem.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>${item.quantity}x <span class="text-gray-500">$${item.price.toFixed(2)}</span></span>
+                    <span class="text-gray-500">$${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            cartCount.textContent = cart.length;
+            orderTotal.textContent = `$${total.toFixed(2)}`;
+        }
+  </script>
+ </body>
