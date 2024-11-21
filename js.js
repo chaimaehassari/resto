@@ -14,6 +14,20 @@ const cart = {};
 const cartItemsElement = document.getElementById("cart-items");
 const cartTotalElement = document.getElementById("cart-total");
 const productsContainer = document.getElementById("products-container");
+const cartCountElement = document.getElementById("cart-count");
+
+
+
+function updateCartCount() {
+  const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+  cartCountElement.textContent = totalItems;
+}
+
+
+function calculerPrixTotal(price, quantite) {
+  return price * quantite;
+}
+
 
 function updateCart() {
   cartItemsElement.innerHTML = "";
@@ -21,56 +35,64 @@ function updateCart() {
 
   for (const id in cart) {
     const item = cart[id];
-    const subtotal = item.price * item.quantity;
+    const subtotal = calculerPrixTotal(item.price, item.quantity);
     total += subtotal;
 
     const listItem = document.createElement("li");
     listItem.innerHTML = `
       <div class="flex items-center justify-between">
-        <span>${item.quantity}x ${item.name}</span>
-        <button class="remove" data-id="${id}"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
-        <path fill="#CAAFA7" d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/>
-    </svg></button>
+        <div>
+          ${item.name} <br>
+          <span>${item.quantity} × @$${item.price.toFixed(2)}  $${subtotal.toFixed(2)}</span>
+        </div>
+        
+        <button class="remove rounded-full border border-black" data-id="${id}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
+            <path fill="#CAAFA7" d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/>
+          </svg>
+        </button>
       </div>
+      <hr class="w-[15rem] " >
     `;
-
     cartItemsElement.appendChild(listItem);
   }
 
   cartTotalElement.textContent = total.toFixed(2);
 
-  const removeButtons = document.querySelectorAll(".remove");
-  removeButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      const id = button.getAttribute("data-id");
-      delete cart[id];
+  document.querySelectorAll(".remove").forEach(button => {
+    button.addEventListener("click", (event) => {
+      const id = event.currentTarget.getAttribute("data-id");
+      if (cart[id]) {
+        delete cart[id];
+      }
       const productElement = document.querySelector(`[data-id="${id}"]`);
       if (productElement) {
         productElement.querySelector(".quantity-controls").style.display = "none";
         productElement.querySelector(".add-to-cart").style.display = "flex";
       }
       updateCart();
+      updateCartCount();
     });
   });
 }
 
+
 products.forEach((product) => {
   const productElement = document.createElement("div");
-  productElement.classList.add("product", "p-4", "rounded-lg");
+  productElement.classList.add("product", "p-4", "rounded-lg", "relative");
 
   productElement.dataset.id = product.id;
-  productElement.dataset.price = product.price;
 
   productElement.innerHTML = `
     <img class="h-48 object-cover rounded-md mb-4" src="${product.imageUrl}" alt="${product.name}">
     <h3 class="text-sm mb-2 text-slate-600">${product.name}</h3>
     <p class="text-m mb-2 font-semibold">${product.description}</p>
     <p class="text-lg font-bold mb-4">$${product.price.toFixed(2)}</p>
-    <button class="add-to-cart flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border-2 ">
+    <button class="add-to-cart flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border-2 absolute top-[12rem] left-[2.75rem]">
       Add to Cart
     </button>
-    <div class="quantity-controls flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border bg-orange-600" style="display: none;">
-      <button class="decrease px-2 py-1 rounded-full bg-orange-600">−</button>
+    <div class="quantity-controls flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border bg-orange-600 absolute top-[12rem] left-[2.75rem]" style="display: none;">
+      <button class="decrease px-2 py-1 rounded-full bg-orange-600 focus:text-white">−</button>
       <span class="quantity text-lg">1</span>
       <button class="increase px-2 py-1 rounded-full bg-orange-600">+</button>
     </div>
@@ -91,12 +113,14 @@ products.forEach((product) => {
     addToCartButton.style.display = "none";
     quantityControls.style.display = "flex";
     updateCart();
+    updateCartCount();
   });
 
   increaseButton.addEventListener("click", () => {
     cart[product.id].quantity++;
     quantitySpan.textContent = cart[product.id].quantity;
     updateCart();
+    updateCartCount();
   });
 
   decreaseButton.addEventListener("click", () => {
@@ -109,5 +133,6 @@ products.forEach((product) => {
       quantitySpan.textContent = cart[product.id].quantity;
     }
     updateCart();
+    updateCartCount();
   });
 });
