@@ -91,7 +91,7 @@ products.forEach((product) => {
     <button class="add-to-cart flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border-2 absolute top-[12rem] left-[2.75rem]">
       Add to Cart
     </button>
-    <div class="quantity-controls flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border bg-orange-600 absolute top-[12rem] left-[2.75rem]" style="display: none;">
+    <div class="quantity-controls  bg-orange-600 flex w-[7rem] h-[2rem] rounded-full  text-xs justify-center items-center border absolute top-[12rem] left-[2.75rem]" style="display: none;">
       <button class="decrease px-2 py-1 rounded-full bg-orange-600 focus:text-white">−</button>
       <span class="quantity text-lg">1</span>
       <button class="increase px-2 py-1 rounded-full bg-orange-600">+</button>
