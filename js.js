@@ -1,5 +1,6 @@
+
 const products = [
-  { id: "1", name: "Waffle", price: 6.50, imageUrl: "images/image-waffle-tablet.jpg", description: "Waffle With Berries" },
+  { id: "1", name: "Waffle", price: 6.50, imageUrl: "images/image-waffle-tablet.jpg", description: "Waffle with Berries" },
   { id: "2", name: "Creme Brulee", price: 7.00, imageUrl: "images/image-creme-brulee-desktop.jpg", description: "Vanilla Bean Creme Brulée" },
   { id: "3", name: "Macaron", price: 8.00, imageUrl: "images/image-macaron-desktop.jpg", description: "Macaron Mix of Five" },
   { id: "4", name: "Tiramisu", price: 5.50, imageUrl: "images/image-tiramisu-desktop.jpg", description: "Classic Tiramisu" },
@@ -16,66 +17,82 @@ const cartTotalElement = document.getElementById("cart-total");
 const productsContainer = document.getElementById("products-container");
 const cartCountElement = document.getElementById("cart-count");
 
-
-
 function updateCartCount() {
   const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
   cartCountElement.textContent = totalItems;
+  if(totalItems>0){
+    const icon =document.getElementById("myIcon");
+    icon.classList.add("hidden");
+  }
 }
-
-
 function calculerPrixTotal(price, quantite) {
   return price * quantite;
 }
-
-
 function updateCart() {
   cartItemsElement.innerHTML = "";
   let total = 0;
-
+  
   for (const id in cart) {
     const item = cart[id];
-    const subtotal = calculerPrixTotal(item.price, item.quantity);
+    const subtotal = item.price * item.quantity;
     total += subtotal;
 
     const listItem = document.createElement("li");
     listItem.innerHTML = `
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between" id="${id}">
         <div>
           ${item.name} <br>
           <span>${item.quantity} × @$${item.price.toFixed(2)}  $${subtotal.toFixed(2)}</span>
         </div>
-        
         <button class="remove rounded-full border border-black" data-id="${id}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
-            <path fill="#CAAFA7" d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/>
-          </svg>
-        </button>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path fill="#CAAFA7" d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/></svg>
+          </button>
       </div>
-      <hr class="w-[15rem] " >
+      <hr class="w-[15rem]">
     `;
     cartItemsElement.appendChild(listItem);
   }
 
   cartTotalElement.textContent = total.toFixed(2);
-
+  updateCartCount();
+  
   document.querySelectorAll(".remove").forEach(button => {
     button.addEventListener("click", (event) => {
       const id = event.currentTarget.getAttribute("data-id");
       if (cart[id]) {
         delete cart[id];
       }
-      const productElement = document.querySelector(`[data-id="${id}"]`);
-      if (productElement) {
-        productElement.querySelector(".quantity-controls").style.display = "none";
-        productElement.querySelector(".add-to-cart").style.display = "flex";
-      }
       updateCart();
-      updateCartCount();
     });
   });
 }
 
+function confirmationModal() {
+  const confirmationList = document.querySelector('.confirmation');
+  confirmationList.innerHTML = '';
+  for (const id in cart) {
+    const item = cart[id];
+    const li = document.createElement('li');
+    li.className = 'flex items-center mb-4';
+    li.innerHTML = `
+    <div class="flex flex-col">
+    <div class=" flex p-[0.5rem]  w-[21rem]">
+      <img src="${item.imageUrl}" alt="${item.name}" class="h-12 w-12 object-cover rounded-md ml-4">
+      <div class="ml-4">
+        <strong>${item.name}</strong><br>
+        <span>${item.quantity} x $${item.price.toFixed(2)}</span>
+      </div>
+    </div>
+    <hr class="w-[23rem]">
+    </div>
+
+    <div> </div>
+
+    `;
+    confirmationList.appendChild(li);
+  }
+  document.getElementById('static-modal').classList.remove('hidden');
+}
 
 products.forEach((product) => {
   const productElement = document.createElement("div");
@@ -91,13 +108,13 @@ products.forEach((product) => {
     <button class="add-to-cart flex w-[7rem] h-[2rem] rounded-full bg-white text-xs justify-center items-center border-2 absolute top-[12rem] left-[2.75rem]">
       Add to Cart
     </button>
-    <div class="quantity-controls  bg-orange-600 flex w-[7rem] h-[2rem] rounded-full  text-xs justify-center items-center border absolute top-[12rem] left-[2.75rem]" style="display: none;">
+    <div class="quantity-controls bg-orange-600 flex w-[7rem] h-[2rem] rounded-full text-xs justify-center items-center border absolute  left-[3.5rem] top-[12rem] " style="display: none;">
       <button class="decrease px-2 py-1 rounded-full bg-orange-600 focus:text-white">−</button>
       <span class="quantity text-lg">1</span>
       <button class="increase px-2 py-1 rounded-full bg-orange-600">+</button>
     </div>
   `;
-
+  
   productsContainer.appendChild(productElement);
 
   const addToCartButton = productElement.querySelector(".add-to-cart");
@@ -108,31 +125,31 @@ products.forEach((product) => {
 
   addToCartButton.addEventListener("click", () => {
     if (!cart[product.id]) {
-      cart[product.id] = { name: product.name, price: product.price, quantity: 1 };
+      cart[product.id] = { name: product.name, price: product.price, quantity: 1, imageUrl: product.imageUrl };
     }
     addToCartButton.style.display = "none";
     quantityControls.style.display = "flex";
     updateCart();
-    updateCartCount();
   });
 
   increaseButton.addEventListener("click", () => {
-    cart[product.id].quantity++;
+    cart[product.id].quantity += 1;
     quantitySpan.textContent = cart[product.id].quantity;
     updateCart();
-    updateCartCount();
   });
 
   decreaseButton.addEventListener("click", () => {
-    cart[product.id].quantity--;
-    if (cart[product.id].quantity === 0) {
-      delete cart[product.id];
-      quantityControls.style.display = "none";
-      addToCartButton.style.display = "flex";
-    } else {
+    if (cart[product.id].quantity > 1) {
+      cart[product.id].quantity -= 1;
       quantitySpan.textContent = cart[product.id].quantity;
+      updateCart();
     }
-    updateCart();
-    updateCartCount();
   });
 });
+
+document.getElementById("confirmModal").addEventListener("click", confirmationModal);
+
+document.querySelector("[data-modal-hide]").addEventListener("click", () => {
+  document.getElementById('static-modal').classList.add('hidden');
+});
+
